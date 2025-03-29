@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom';
-import Navabar from './src/components/Navabar.jsx'
+import Navabar from './components/Navabar.jsx'
 
-import HomePage from './src/pages/HomePage.jsx';
-import SignUpPage from './src/pages/SignUpPage.jsx';
-import LoginPage from './src/pages/LoginPage.jsx';
-import SettingsPage from './src/pages/SettingPage.jsx';
-import ProfilePage from './src/pages/ProfilePage.jsx';
+import HomePage from './pages/HomePage.jsx';
+import SignUpPage from './pages/SignUpPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import SettingsPage from './pages/SettingPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
-import { useAuthStore } from './src/store/useAuthStore.js';
-import useThemeStore from './src/store/useThemeStore.js';
+import { useAuthStore } from "./store/useAuthStore.js";
+import useThemeStore from './store/useThemeStore.js';
 import {Loader} from "lucide-react";
 import { Navigate } from 'react-router';
 import { Toaster } from 'react-hot-toast';
-import ErrorBoundary from './src/utils/ErrorBoundarirs.jsx';
+import ErrorBoundary from './utils/ErrorBoundarirs.jsx';
 
 const App = () => {
 
