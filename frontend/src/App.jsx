@@ -21,14 +21,10 @@ const App = () => {
   const {authUser, isCheckingAuth,checkAuth,onlineUsers} = useAuthStore();
   const {theme, setTheme} = useThemeStore();
 
-  console.log("Users");
-  console.log({onlineUsers});
-
   useEffect(()=>{
     checkAuth();
   },[checkAuth]);
 
-  console.log({authUser});
 
   if(isCheckingAuth && !authUser){
     return (
@@ -37,25 +33,6 @@ const App = () => {
     </div>
     )
   }
-
-    // to avoid cold start
-    useEffect(() => {
-        const backendUrl = "/health";
-  
-        const interval = setInterval(async () => {
-          try {
-            console.log(`Pinging backend at ${backendUrl}`);
-            await axiosInstance.get(backendUrl);
-            console.log("Backend is warm!");
-          } catch (err) {
-            console.error("Error pinging backend:", err.message);
-          }
-        }, 300000); // 300,000 ms = 5 minutes
-  
-        // Cleanup interval on component unmount
-        return () => clearInterval(interval);
-    }, []);
-
 
   return (
     <div data-theme={theme} >
