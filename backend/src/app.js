@@ -42,6 +42,8 @@ app.use("/api/message",messageRoutes);
 // pointint to forntend folder dist
 // api and react application in same file...
 
+console.log("Serving frontend from:", path.join(__dirname, "../../frontend/dist"));
+
 if (process.env.NODE_ENV === "production") {
     // Serve static files from the frontend/dist directory
     app.use(express.static(path.join(__dirname, "../../frontend/dist")));
