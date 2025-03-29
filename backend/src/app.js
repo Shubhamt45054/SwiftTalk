@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser"
 import {app,server} from "./utils/socket.js"
 import bodyParser from "body-parser";
 import path from "path";
-
+import fs from "fs";
 
 
 const __dirname = path.resolve();
@@ -34,6 +34,7 @@ app.use(
 //routes import
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/messageRoutes.js";
+import { kMaxLength } from "buffer";
 
 // routes decleration
 app.use("/api/auth", authRoutes);
@@ -42,7 +43,18 @@ app.use("/api/message",messageRoutes);
 // pointint to forntend folder dist
 // api and react application in same file...
 
-console.log("Serving frontend from:", path.join(__dirname, "../../frontend/dist"));
+// Debug log to check the resolved path
+const frontendPath = path.join(__dirname, "../../frontend/dist");
+console.log("Serving frontend from:", frontendPath);
+
+// Check if the `index.html` file exists
+if (fs.existsSync(path.join(frontendPath, "index.html"))) {
+    console.log("index.html exists!");
+} else {
+    console.error("index.html does NOT exist!");
+}
+
+// to debug..
 
 if (process.env.NODE_ENV === "production") {
     // Serve static files from the frontend/dist directory
