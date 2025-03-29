@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom';
-import Navabar from './components/Navabar.jsx'
+import Navbar from './components/Navbar.jsx'
 
 import HomePage from './pages/HomePage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
@@ -41,7 +41,7 @@ const App = () => {
     <div data-theme={theme} >
       <ErrorBoundary>
 
-      <Navabar/>
+      <Navbar/>
       <Routes>
         <Route path="/" element={authUser ? <HomePage /> : <Navigate to="/login" />} />
         <Route path="/signup" element={!authUser ? <SignUpPage /> : <Navigate to="/" />} />
