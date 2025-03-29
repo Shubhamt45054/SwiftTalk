@@ -40,7 +40,6 @@ const App = () => {
 
     // to avoid cold start
     useEffect(() => {
-      if (process.env.NODE_ENV === "production") {
         const backendUrl = "/health";
   
         const interval = setInterval(async () => {
@@ -55,7 +54,6 @@ const App = () => {
   
         // Cleanup interval on component unmount
         return () => clearInterval(interval);
-      }
     }, []);
 
 
