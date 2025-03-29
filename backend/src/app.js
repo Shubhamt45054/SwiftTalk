@@ -37,6 +37,10 @@ import messageRoutes from "./routes/messageRoutes.js";
 // routes decleration
 app.use("/api/auth", authRoutes);
 app.use("/api/message",messageRoutes);
+app.get("/api/health", (req, res) => {
+    console.log("Health check endpoint hit: Server is working!");
+    res.status(200).json({ message: "Server is working!" });
+});
 
 
 // pointint to forntend folder dist / its for onrander production...

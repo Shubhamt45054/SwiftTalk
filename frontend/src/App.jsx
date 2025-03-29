@@ -14,6 +14,7 @@ import {Loader} from "lucide-react";
 import { Navigate } from 'react-router';
 import { Toaster } from 'react-hot-toast';
 import ErrorBoundary from './utils/ErrorBoundarirs.jsx';
+import { axiosInstance } from "../utils/axios";
 
 const App = () => {
 
@@ -36,6 +37,27 @@ const App = () => {
     </div>
     )
   }
+
+    // to avoid cold start
+    useEffect(() => {
+      if (process.env.NODE_ENV === "production") {
+        const backendUrl = "/health";
+  
+        const interval = setInterval(async () => {
+          try {
+            console.log(`Pinging backend at ${backendUrl}`);
+            await axiosInstance.get(backendUrl);
+            console.log("Backend is warm!");
+          } catch (err) {
+            console.error("Error pinging backend:", err.message);
+          }
+        }, 300000); // 300,000 ms = 5 minutes
+  
+        // Cleanup interval on component unmount
+        return () => clearInterval(interval);
+      }
+    }, []);
+
 
   return (
     <div data-theme={theme} >
