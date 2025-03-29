@@ -9,11 +9,16 @@ const app=express();
 // create server
 const server=http.createServer(app);
 
-const io = new Server(server,{
-    cors :{
-        origin:["http://localhost:5173"],
-    }
-})
+const io = new Server(server, {
+    cors: {
+        origin: [
+            "http://localhost:5173",
+            "https://website-keep-up.vercel.app"
+        ],
+        methods: ["GET", "POST"], // Allowed HTTP methods
+        credentials: true, // Allow cookies and credentials
+    },
+});
 
 export function getReceiverSocketId(userId){
     return userSocketMap[userId];

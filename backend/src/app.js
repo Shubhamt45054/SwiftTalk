@@ -25,7 +25,10 @@ app.use(
 // ...existing code...
 app.use(
     cors({
-    origin: "http://localhost:5173",
+    origin: [
+        "http://localhost:5173",
+        "https://website-keep-up.vercel.app"
+    ],
     credentials: true
 }
 ));
