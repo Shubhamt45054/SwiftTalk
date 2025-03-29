@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser"
 import {app,server} from "./utils/socket.js"
 import bodyParser from "body-parser";
 import path from "path";
+import html from "../"
 
 
 const __dirname = path.resolve();
@@ -40,12 +41,15 @@ app.use("/api/message",messageRoutes);
 
 // pointint to forntend folder dist
 // api and react application in same file...
-if(process.env.NODE_ENV==="production"){
-    app.use(express.static(path.join(__dirname,".../frontend/dist")));
 
-    app.get("*",(req,res)=>{
-        res.sendFile(path.join(__dirname,".../frontend","dist","index.html"));
-    })
+if (process.env.NODE_ENV === "production") {
+    // Serve static files from the frontend/dist directory
+    app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+
+    // Handle all unmatched routes by serving the frontend's index.html
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../../frontend/dist", "index.html"));
+    });
 }
 
 export {server};
