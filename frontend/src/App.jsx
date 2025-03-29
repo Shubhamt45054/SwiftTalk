@@ -1,47 +1,42 @@
-import React, { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom';
-import Navabar from './src/components/Navabar.jsx'
+import Navbar from "./components/Navbar";
 
-import HomePage from './src/pages/HomePage.jsx';
-import SignUpPage from './src/pages/SignUpPage.jsx';
-import LoginPage from './src/pages/LoginPage.jsx';
-import SettingsPage from './src/pages/SettingPage.jsx';
-import ProfilePage from './src/pages/ProfilePage.jsx';
+import HomePage from "./pages/HomePage";
+import SignUpPage from "./pages/SignUpPage";
+import LoginPage from "./pages/LoginPage";
+import SettingsPage from "./pages/SettingsPage";
+import ProfilePage from "./pages/ProfilePage";
 
-import { useAuthStore } from './src/store/useAuthStore.js';
-import useThemeStore from './src/store/useThemeStore.js';
-import {Loader} from "lucide-react";
-import { Navigate } from 'react-router';
-import { Toaster } from 'react-hot-toast';
-import ErrorBoundary from './src/utils/ErrorBoundarirs.jsx';
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuthStore } from "./store/useAuthStore";
+import { useThemeStore } from "./store/useThemeStore";
+import { useEffect } from "react";
+
+import { Loader } from "lucide-react";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
+  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
+  const { theme } = useThemeStore();
 
-  const {authUser, isCheckingAuth,checkAuth,onlineUsers} = useAuthStore();
-  const {theme, setTheme} = useThemeStore();
+  console.log({ onlineUsers });
 
-  console.log("Users");
-  console.log({onlineUsers});
-
-  useEffect(()=>{
+  useEffect(() => {
     checkAuth();
-  },[checkAuth]);
-  
-  console.log({authUser});
+  }, [checkAuth]);
 
-  if(isCheckingAuth && !authUser){
+  console.log({ authUser });
+
+  if (isCheckingAuth && !authUser)
     return (
       <div className="flex items-center justify-center h-screen">
-      <Loader className="size-10 animate-spin" />
-    </div>
-    )
-  }
+        <Loader className="size-10 animate-spin" />
+      </div>
+    );
 
   return (
-    <div data-theme={theme} >
-      <ErrorBoundary>
+    <div data-theme={theme}>
+      <Navbar />
 
-      <Navabar/>
       <Routes>
         <Route path="/" element={authUser ? <HomePage /> : <Navigate to="/login" />} />
         <Route path="/signup" element={!authUser ? <SignUpPage /> : <Navigate to="/" />} />
@@ -49,11 +44,9 @@ const App = () => {
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/profile" element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
       </Routes>
-      <Toaster/>
 
-      </ErrorBoundary>
+      <Toaster />
     </div>
-  )
-}
-
+  );
+};
 export default App;
