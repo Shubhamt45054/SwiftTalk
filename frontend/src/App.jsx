@@ -14,7 +14,7 @@ import {Loader} from "lucide-react";
 import { Navigate } from 'react-router';
 import { Toaster } from 'react-hot-toast';
 import ErrorBoundary from './utils/ErrorBoundarirs.jsx';
-import { axiosInstance } from "../utils/axios";
+import { axiosInstance } from "./utils/axios.js";
 
 const App = () => {
 
