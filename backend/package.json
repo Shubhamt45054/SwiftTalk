@@ -42,6 +42,8 @@
 
     "mongoose": "^8.12.1",
 
+    "node-cron": "^3.0.3",
+
     "production": "file:..",
 
     "socket.io": "^4.8.1"
