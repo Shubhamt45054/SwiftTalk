@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser"
 import {app,server} from "./utils/socket.js"
 import bodyParser from "body-parser";
 import path from "path";
-import html from "../"
+
 
 
 const __dirname = path.resolve();
