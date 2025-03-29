@@ -5,6 +5,8 @@ import {app,server} from "./utils/socket.js"
 import bodyParser from "body-parser";
 import path from "path";
 import fs from "fs";
+import { exec } from "child_process";
+
 
 
 const __dirname = path.resolve();
@@ -40,11 +42,20 @@ import { kMaxLength } from "buffer";
 app.use("/api/auth", authRoutes);
 app.use("/api/message",messageRoutes);
 
+
+exec("ls -l /opt/render/project/src", (err, stdout, stderr) => {
+    if (err) {
+        console.error("Error listing directory:", err);
+        return;
+    }
+    console.log("Directory structure at /opt/render/project/src:");
+    console.log(stdout);
+});
+
+
 // pointint to forntend folder dist
 // api and react application in same file...
-
-// Debug log to check the resolved path
-const frontendPath = path.join(__dirname, "../../frontend/dist");
+const frontendPath = path.join(__dirname, "../frontend/dist");
 console.log("Serving frontend from:", frontendPath);
 
 // Check if the `index.html` file exists
@@ -54,15 +65,13 @@ if (fs.existsSync(path.join(frontendPath, "index.html"))) {
     console.error("index.html does NOT exist!");
 }
 
-// to debug..
-
 if (process.env.NODE_ENV === "production") {
     // Serve static files from the frontend/dist directory
-    app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+    app.use(express.static(frontendPath));
 
     // Handle all unmatched routes by serving the frontend's index.html
     app.get("*", (req, res) => {
-        res.sendFile(path.join(__dirname, "../../frontend", "dist", "index.html"));
+        res.sendFile(path.join(frontendPath, "index.html"));
     });
 }
 
