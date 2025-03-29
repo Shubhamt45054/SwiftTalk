@@ -4,9 +4,6 @@ import cookieParser from "cookie-parser"
 import {app,server} from "./utils/socket.js"
 import bodyParser from "body-parser";
 import path from "path";
-import fs from "fs";
-import { exec } from "child_process";
-
 
 
 const __dirname = path.resolve();
@@ -36,34 +33,16 @@ app.use(
 //routes import
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/messageRoutes.js";
-import { kMaxLength } from "buffer";
 
 // routes decleration
 app.use("/api/auth", authRoutes);
 app.use("/api/message",messageRoutes);
 
 
-exec("ls -l /opt/render/project/src", (err, stdout, stderr) => {
-    if (err) {
-        console.error("Error listing directory:", err);
-        return;
-    }
-    console.log("Directory structure at /opt/render/project/src:");
-    console.log(stdout);
-});
-
-
-// pointint to forntend folder dist
+// pointint to forntend folder dist / its for onrander production...
 // api and react application in same file...
-const frontendPath = path.join(__dirname, "../frontend/dist");
-console.log("Serving frontend from:", frontendPath);
 
-// Check if the `index.html` file exists
-if (fs.existsSync(path.join(frontendPath, "index.html"))) {
-    console.log("index.html exists!");
-} else {
-    console.error("index.html does NOT exist!");
-}
+const frontendPath = path.join(__dirname, "../frontend/dist");
 
 if (process.env.NODE_ENV === "production") {
     // Serve static files from the frontend/dist directory
