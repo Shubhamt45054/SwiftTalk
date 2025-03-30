@@ -30,7 +30,7 @@ const SignUpPage = () => {
         e.preventDefault();
 
         const success = validateForm();
-        console.log(formData);
+        // console.log(formData);
 
         if(success){
             signup(formData);

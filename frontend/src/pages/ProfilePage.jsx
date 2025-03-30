@@ -14,6 +14,12 @@ const ProfilePage = () => {
   
     const reader = new FileReader();
   
+    const maxSizeInBytes = 1 * 1024 * 1024; // 1MB in bytes
+    if (file.size > maxSizeInBytes) {
+        toast.error("Image size exceeds 1MB. Please upload a smaller image.");
+        return;
+    }
+    
     // Convert the file to a Base64 string
     reader.readAsDataURL(file);
   
